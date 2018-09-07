@@ -1,16 +1,3 @@
-// This enum corresponds to the icons that OpenWeatherMap returns
-enum generalWeatherType {
-    CLEAR_SKY,
-    FEW_CLOUDS,
-    SCATTERED_CLOUDS,
-    BROKEN_CLOUDS,
-    SHOWER_RAIN,
-    RAIN,
-    THUNDERSTORM,
-    SNOW,
-    MIST
-};
-
 /**************************************************************
 Weather condition codes as defined in:
 https://openweathermap.org/weather-conditions
@@ -23,7 +10,8 @@ should point to "rain" instead of "snow" for instance.
 
 This allows them to change that.
 **************************************************************/
-enum weatherConditionCode {
+enum weatherConditionCode
+{
     // 200 block: Thunderstorm
     WCC_TS_LIGHT_RAIN              = 200,
     WCC_TS_RAIN                    = 201,
