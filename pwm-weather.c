@@ -24,12 +24,14 @@ OpenWeatherMap API into PWM values.
 **************************************************************/
 void convert_temperature_to_pwm(float temperature, WeatherDataAsPWMValues *wd)
 {
+    if (wd == NULL) return;
+
     // Boundary check
     if (temperature > MAX_TEMPERATURE) temperature = MAX_TEMPERATURE;
     else if (temperature < MIN_TEMPERATURE) temperature = MIN_TEMPERATURE;
 
     double slope = 1.0 * (PWM_MAX - PWM_MIN) / (MAX_TEMPERATURE - MIN_TEMPERATURE);
-    wd.temperature = (uint8_t)floor((PWM_MIN + slope * (temperature - MIN_TEMPERATURE)) + 0.5);
+    wd->temperature = (uint8_t)floor((PWM_MIN + slope * (temperature - MIN_TEMPERATURE)) + 0.5);
 }
 
 /**************************************************************

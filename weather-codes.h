@@ -10,6 +10,9 @@ should point to "rain" instead of "snow" for instance.
 
 This allows them to change that.
 **************************************************************/
+#ifndef WEATHER_CODES_H
+#define WEATHER_CODES_H
+
 enum weatherConditionCode
 {
     // 200 block: Thunderstorm
@@ -78,3 +81,5 @@ enum weatherConditionCode
     WCC_BROKEN_CLOUDS              = 803,
     WCC_OVERCAST_CLOUDS            = 804   
 };
+
+#endif

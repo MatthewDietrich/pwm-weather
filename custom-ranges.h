@@ -5,8 +5,13 @@
   user's needs
 **************************************************************/
 
-const float MIN_TEMPERATURE = -50.0;
-const float MAX_TEMPERATURE = 120.0;
+#ifndef CUSTOM_RANGES_H
+#define CUSTOM_RANGES_H
 
-const float MIN_HUMIDITY = 0.0;
-const float MAX_HUMIDITY = 100.0;
+#define MIN_TEMPERATURE -50.0
+#define MAX_TEMPERATURE 120.0
+
+#define MIN_HUMIDITY 0.0
+#define MAX_HUMIDITY 100.0
+
+#endif

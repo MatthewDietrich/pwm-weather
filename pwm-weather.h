@@ -1,5 +1,9 @@
+#ifndef PWM_WEATHER_H
+#define PWM_WEATHER_H
+
 #include <stdlib.h>
 #include <stdint.h>
+#include <math.h>
 #include "weather-codes.h"
 #include "custom-ranges.h"
 
@@ -43,4 +47,7 @@ typedef struct
    uint8_t intensity;
 } WeatherDataAsPWMValues;
 
-void parse_weather_condition_code(int wcc, WeatherDataAsPWMValues *wd);
+void convert_temperature_to_pwm(const float temperature, WeatherDataAsPWMValues *wd);
+void parse_weather_condition_code(const int wcc, WeatherDataAsPWMValues *wd);
+
+#endif
