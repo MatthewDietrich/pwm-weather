@@ -1,26 +1,28 @@
 #include "weather-codes.h"
 #include <stdint.h>
 
-// This enum corresponds to the icons that OpenWeatherMap returns
-enum generalWeatherType
+// Corresponds to the weather type icons that OpenWeatherMap returns
+enum pwmWeatherType
 {
-    CLEAR_SKY,
-    FEW_CLOUDS,
-    SCATTERED_CLOUDS,
-    BROKEN_CLOUDS,
-    SHOWER_RAIN,
-    RAIN,
-    THUNDERSTORM,
-    SNOW,
-    MIST
+    PWM_NO_CONDITION        = 0,
+    PWM_CLEAR_SKY           = 28,
+    PWM_FEW_CLOUDS          = 56,
+    PWM_SCATTERED_CLOUDS    = 85,
+    PWM_BROKEN_CLOUDS       = 113,
+    PWM_SHOWER_RAIN         = 142,
+    PWM_RAIN                = 170,
+    PWM_THUNDERSTORM        = 198,
+    PWM_SNOW                = 227,
+    PWM_MIST                = 255
 };
 
-enum weather_intensity
+// Corresponds to the intensity as defined in the weather code (see weather-codes.h)
+enum pwmWeatherIntensity
 {
-    NO_INTENSITY,
-    LOW_INTENSITY,
-    MEDIUM_INTENSITY,
-    HIGH_INTENSITY
+    PWM_NO_INTENSITY        = 0,
+    PWM_LIGHT_INTENSITY     = 85,
+    PWM_MEDIUM_INTENSITY    = 170,
+    PWM_HEAVY_INTENSITY     = 255
 };
 
 typedef struct
