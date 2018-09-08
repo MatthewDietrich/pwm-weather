@@ -11,6 +11,28 @@ OpenWeatherMap API into PWM values.
 #include "pwm-weather.h"
 
 /**************************************************************
+- convert_temperature_to_pwm
+
+- Given a temperature, convert to a value between 0 and 255,
+  with 0 corresponding to MIN_TEMPERATURE and 255 corresponding
+  to MAX_TEMPERATURE.
+
+- The units of temperature don't matter. This is just mapping
+  one numeric range onto another.
+
+- https://stackoverflow.com/questions/5731863/#5732390
+**************************************************************/
+void convert_temperature_to_pwm(float temperature, WeatherDataAsPWMValues *wd)
+{
+    // Boundary check
+    if (temperature > MAX_TEMPERATURE) temperature = MAX_TEMPERATURE;
+    else if (temperature < MIN_TEMPERATURE) temperature = MIN_TEMPERATURE;
+
+    double slope = 1.0 * (PWM_MAX - PWM_MIN) / (MAX_TEMPERATURE - MIN_TEMPERATURE);
+    wd.temperature = (uint8_t)floor((PWM_MIN + slope * (temperature - MIN_TEMPERATURE)) + 0.5);
+}
+
+/**************************************************************
 - parse_weather_condition_code
 
 - Given a weather code corresponding to a specific type of
