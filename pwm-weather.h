@@ -1,4 +1,5 @@
 #include "weather-codes.h"
+#include <stdlib.h>
 #include <stdint.h>
 
 // Corresponds to the weather type icons that OpenWeatherMap returns
@@ -32,3 +33,5 @@ typedef struct
    uint8_t condition;
    uint8_t intensity;
 } WeatherDataAsPWMValues;
+
+void parse_weather_condition_code(int wcc, WeatherDataAsPWMValues *wd);
