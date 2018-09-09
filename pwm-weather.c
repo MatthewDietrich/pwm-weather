@@ -10,28 +10,37 @@ OpenWeatherMap API into PWM values.
 
 #include "pwm-weather.h"
 
-/**************************************************************
-- convert_temperature_to_pwm
-
-- Given a temperature, convert to a value between 0 and 255,
-  with 0 corresponding to MIN_TEMPERATURE and 255 corresponding
-  to MAX_TEMPERATURE.
-
-- The units of temperature don't matter. This is just mapping
-  one numeric range onto another.
-
-- https://stackoverflow.com/questions/5731863/#5732390
-**************************************************************/
-void convert_temperature_to_pwm(float temperature, WeatherDataAsPWMValues *wd)
+void convert_temperature_to_pwm(const float temperature, WeatherDataAsPWMValues *wd)
 {
     if (wd == NULL) return;
+    wd->temperature = convert_value_in_range_to_pwm(temperature, MIN_TEMPERATURE, MAX_TEMPERATURE);
+}
+
+void convert_humidity_to_pwm(const float humidity, WeatherDataAsPWMValues *wd)
+{
+    if (wd == NULL) return;
+    wd->temperature = convert_value_in_range_to_pwm(humidity, MIN_HUMIDITY, MAX_HUMIDITY);
+}
+
+/**************************************************************
+- convert_value_in_range_to_pwm
+
+- Given a floating point value and a range of possible values,
+  convert the value to an integer between 0 and 255
+
+- https://stackoverflow.com/questions/573186
+**************************************************************/
+uint8_t convert_value_in_range_to_pwm(float value, const float minValue, const float maxValue)
+{
+    // Prevent divide by zero error. There's probably a better way to do this but this will work for now.
+    if (minValue >= maxValue) return 0;
 
     // Boundary check
-    if (temperature > MAX_TEMPERATURE) temperature = MAX_TEMPERATURE;
-    else if (temperature < MIN_TEMPERATURE) temperature = MIN_TEMPERATURE;
-
-    double slope = 1.0 * (PWM_MAX - PWM_MIN) / (MAX_TEMPERATURE - MIN_TEMPERATURE);
-    wd->temperature = (uint8_t)floor((PWM_MIN + slope * (temperature - MIN_TEMPERATURE)) + 0.5);
+    if (value > maxValue) value = maxValue;
+    else if (value < minValue) value = minValue;
+    
+    double slope = 1.0 * (PWM_MAX - PWM_MIN) / (maxValue - minValue);
+    return (uint8_t)floor((PWM_MIN + slope * (value - minValue)) + 0.5);
 }
 
 /**************************************************************
@@ -44,7 +53,7 @@ void convert_temperature_to_pwm(float temperature, WeatherDataAsPWMValues *wd)
 **************************************************************/
 void parse_weather_condition_code(int wcc, WeatherDataAsPWMValues *wd)
 {
-    if (wd == NULL) return;;
+    if (wd == NULL) return;
 
     /***
     - Store weather condition

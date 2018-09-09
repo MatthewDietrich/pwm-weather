@@ -48,6 +48,8 @@ typedef struct
 } WeatherDataAsPWMValues;
 
 void convert_temperature_to_pwm(const float temperature, WeatherDataAsPWMValues *wd);
+void convert_humidity_to_pwm(const float humidity, WeatherDataAsPWMValues *wd);
+uint8_t convert_value_in_range_to_pwm(float value, const float minValue, const float maxValue);
 void parse_weather_condition_code(const int wcc, WeatherDataAsPWMValues *wd);
 
 #endif
