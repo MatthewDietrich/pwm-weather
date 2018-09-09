@@ -16,6 +16,12 @@ void convert_temperature_to_pwm(const float temperature, WeatherDataAsPWMValues 
     wd->temperature = convert_value_in_range_to_pwm(temperature, MIN_TEMPERATURE, MAX_TEMPERATURE);
 }
 
+void convert_humidity_to_pwm(const float humidity, WeatherDataAsPWMValues *wd)
+{
+    if (wd == NULL) return;
+    wd->temperature = convert_value_in_range_to_pwm(humidity, MIN_HUMIDITY, MAX_HUMIDITY);
+}
+
 /**************************************************************
 - convert_value_in_range_to_pwm
 
