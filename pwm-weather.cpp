@@ -218,3 +218,15 @@ void parse_weather_condition_code(int wcc, WeatherDataAsPWMValues *wd)
 
     }
 }
+
+/**************************************************************
+- parseWeatherFile
+
+- Given an XML file returned by the OpenWeatherMap API, use
+  Tinyxml2 to parse the data and store the values of the
+  relevant tags in the WeatherDataAsPWMValues file.
+**************************************************************/
+void parseWeatherFile()
+{
+    
+}
