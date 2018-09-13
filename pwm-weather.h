@@ -1,9 +1,9 @@
 #ifndef PWM_WEATHER_H
 #define PWM_WEATHER_H
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <stdint.h>
-#include <math.h>
+#include <cmath>
 #include "weather-codes.h"
 #include "custom-ranges.h"
 
@@ -41,6 +41,7 @@ enum pwmWeatherIntensity
 
 typedef struct
 {
+public:
    uint8_t temperature;
    uint8_t humidity;
    uint8_t condition;
