@@ -4,8 +4,10 @@
 #include <cstdlib>
 #include <stdint.h>
 #include <cmath>
+#include <iostream>
 #include "weather-codes.h"
 #include "custom-ranges.h"
+#include "dependencies/tinyxml2.h"
 
 /**************************************************************
 - Minimum and maximum PWM values
@@ -52,5 +54,6 @@ void convert_temperature_to_pwm(const float temperature, WeatherDataAsPWMValues 
 void convert_humidity_to_pwm(const float humidity, WeatherDataAsPWMValues *wd);
 uint8_t convert_value_in_range_to_pwm(float value, const float minValue, const float maxValue);
 void parse_weather_condition_code(const int wcc, WeatherDataAsPWMValues *wd);
+void parse_weather_file(const char* fileName, WeatherDataAsPWMValues *wd);
 
 #endif

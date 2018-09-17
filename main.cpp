@@ -7,9 +7,7 @@ int main()
 {
     WeatherDataAsPWMValues wd;
 
-    convert_humidity_to_pwm(50.1f, &wd);
-    int a = wd.temperature;
-    std::cout << a << std::endl;
+    parse_weather_file("test.xml", &wd);
 
     return 0;
 }

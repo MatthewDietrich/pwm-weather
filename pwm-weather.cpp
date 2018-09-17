@@ -220,13 +220,28 @@ void parse_weather_condition_code(int wcc, WeatherDataAsPWMValues *wd)
 }
 
 /**************************************************************
-- parseWeatherFile
+- parse_weather_file
 
 - Given an XML file returned by the OpenWeatherMap API, use
   Tinyxml2 to parse the data and store the values of the
   relevant tags in the WeatherDataAsPWMValues file.
 **************************************************************/
-void parseWeatherFile()
+void parse_weather_file(const char* weatherFileName, WeatherDataAsPWMValues *wd)
 {
-    
+    if (wd == NULL) return;
+
+    tinyxml2::XMLDocument doc;
+    doc.LoadFile(weatherFileName);
+    int xmlSuccess;
+
+    float temperature;
+    xmlSuccess = doc.FirstChildElement("current")->FirstChildElement("temperature")->QueryFloatAttribute("value", &temperature);
+
+    int humidity;
+    xmlSuccess = doc.FirstChildElement("current")->FirstChildElement("humidity")->QueryIntAttribute("value", &humidity);
+
+    int conditionCode;
+    xmlSuccess = doc.FirstChildElement("current")->FirstChildElement("weather")->QueryIntAttribute("number", &conditionCode);
+
+    std::cout << temperature << " " << humidity << " " << conditionCode << " " << std::endl;
 }
