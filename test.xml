@@ -1,4 +1,5 @@
 <!-- Sample output of openWeatherMap API -->
+<?xml version="1.0" encoding="utf-8"?>
 <current>
     <city id="2643741" name="City of London">
         <coord lon="-0.09" lat="51.51">

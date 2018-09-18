@@ -230,18 +230,9 @@ void parse_weather_file(const char* weatherFileName, WeatherDataAsPWMValues *wd)
 {
     if (wd == NULL) return;
 
-    tinyxml2::XMLDocument doc;
-    doc.LoadFile(weatherFileName);
-    int xmlSuccess;
+    std::cout << weatherFileName << std::endl;
 
-    float temperature;
-    xmlSuccess = doc.FirstChildElement("current")->FirstChildElement("temperature")->QueryFloatAttribute("value", &temperature);
-
-    int humidity;
-    xmlSuccess = doc.FirstChildElement("current")->FirstChildElement("humidity")->QueryIntAttribute("value", &humidity);
-
-    int conditionCode;
-    xmlSuccess = doc.FirstChildElement("current")->FirstChildElement("weather")->QueryIntAttribute("number", &conditionCode);
-
-    std::cout << temperature << " " << humidity << " " << conditionCode << " " << std::endl;
+    tinyxml2::XMLDocument doc(weatherFileName);
+    tinyxml2::XMLElement *root = doc.FirstChildElement("current");
+    if (root == NULL) std::cout << "Error" << std::endl;
 }
