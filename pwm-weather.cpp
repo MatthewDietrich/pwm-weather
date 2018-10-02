@@ -245,6 +245,68 @@ void parse_weather_file(const char* weatherFileName, WeatherDataAsPWMValues *wd)
     tinyxml2::XMLElement *root = doc.RootElement();
     if (root == NULL)
     {
-      std::cout << "Error parsing " << weatherFileName << std::endl;
+      std::cerr << "Error parsing " << weatherFileName << std::endl;
     }
+
+    float temperature = get_temperature(root);
+    int humidity = get_humidity(root);
+    int conditionCode = get_condition_code(root);
+
+    convert_temperature_to_pwm(temperature, wd);
+    convert_humidity_to_pwm(humidity, wd);
+    parse_weather_condition_code(conditionCode, wd);
+}
+
+float get_temperature(tinyxml2::XMLElement *xmlRoot)
+{
+    if (xmlRoot == NULL)
+    {
+        std::cerr << "get_temperature: Error - null root element" << std::endl;
+        return 0.0;
+    }
+
+    tinyxml2::XMLElement *temperatureElement = xmlRoot->FirstChildElement("temperature");
+    if (temperatureElement == NULL)
+    {
+        std::cerr << "get_temperature: Error - could not find <temperature> tag" << std::endl;
+        return 0.0;
+    }
+
+    return temperatureElement->FloatAttribute("value");
+}
+
+int get_humidity(tinyxml2::XMLElement *xmlRoot)
+{
+    if (xmlRoot == NULL)
+    {
+        std::cerr << "get_humidity: Error - null root element" << std::endl;
+        return 0.0;
+    }
+
+    tinyxml2::XMLElement *humidityElement = xmlRoot->FirstChildElement("humidity");
+    if (humidityElement == NULL)
+    {
+        std::cerr << "get_humidity: Error - could not find <humidity> tag" << std::endl;
+        return 0.0;
+    }
+
+    return humidityElement->IntAttribute("value");
+}
+
+int get_condition_code(tinyxml2::XMLElement *xmlRoot)
+{
+    if (xmlRoot == NULL)
+    {
+        std::cerr << "get_condition_code: Error - null root element" << std::endl;
+        return 0.0;
+    }
+
+    tinyxml2::XMLElement *weatherElement = xmlRoot->FirstChildElement("weather");
+    if (weatherElement == NULL)
+    {
+        std::cerr << "get_condition_code: Error - could not find <weather> tag" << std::endl;
+        return 0.0;
+    }
+
+    return weatherElement->IntAttribute("number");
 }

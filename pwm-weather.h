@@ -55,5 +55,8 @@ void convert_humidity_to_pwm(const float humidity, WeatherDataAsPWMValues *wd);
 uint8_t convert_value_in_range_to_pwm(float value, const float minValue, const float maxValue);
 void parse_weather_condition_code(const int wcc, WeatherDataAsPWMValues *wd);
 void parse_weather_file(const char* fileName, WeatherDataAsPWMValues *wd);
+float get_temperature(tinyxml2::XMLElement *xmlRoot);
+int get_humidity(tinyxml2::XMLElement *xmlRoot);
+int get_condition_code(tinyxml2::XMLElement *xmlRoot);
 
 #endif
